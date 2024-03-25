@@ -8,6 +8,7 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
     })
     .then(data => {
         let productCategories = showData(data);
+        console.log("productCategories", productCategories);
         const counts = {};
         productCategories.forEach((x) => {
             counts[x] = (counts[x] || 0) + 1;
@@ -55,8 +56,7 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
             .attr("height", d => height - y(d[1]));
 
 
-    })  
-    
+    })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
