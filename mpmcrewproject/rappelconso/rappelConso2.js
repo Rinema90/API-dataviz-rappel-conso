@@ -7,10 +7,10 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
         return response.json();
     })
     .then(data => {
-        let productCategories = showData(data);
-        console.log("productCategories", productCategories);
+        let alimCategories = showData(data);
+        console.log("alimCategories", alimCategories);
         const counts = {};
-        productCategories.forEach((x) => {
+        alimCategories.forEach((x) => {
             counts[x] = (counts[x] || 0) + 1;
 
         });
@@ -62,9 +62,9 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
     });
 
 function showData(data) {
-    let categories = [];
+    let sousCategorie = [];
     data.results.forEach(element => {
-        categories.push(element.categorie_de_produit);
+        sousCategorie.push(element.categorie_de_produit);
     });
-    return categories;
+    return sousCategorie;
 }

@@ -1,32 +1,32 @@
-fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso0/records?select=count(*)&group_by=sous_categorie_de_produit&limit=100&refine=date_de_publication%3A2024&refine=categorie_de_produit%3A%22Alimentation%22')
-    // pour limiter à l'anée 2024, ajouter à l'URL : ?refine=date_de_publication:2024
+fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso0/records?select=count(*)&group_by=categorie_de_produit&order_by=count(*)DESC&refine=date_de_publication%3A2024')
+    // pour limiter à l'anée 2024, ajouter à l'URL : ?refine=date_de_publication%3A2024
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.json();
     })
-        .then(data => {
-            console.log(data)
-            const newResults = {}
-            data.results.forEach(item => {
-                const categorie = item['sous_categorie_de_produit'];
-                const count = item['count(*)'];
-                newResults[categorie] = count;
-            });
-    
-            console.log("newResults", newResults)
+    .then(data => {
+        console.log(data)
+        const newResultsCategorie = {}
+        data.results.forEach(item => {
+            const categorie = item['categorie_de_produit'];
+            const count = item['count(*)'];
+            newResultsCategorie[categorie] = (count);
+        });
 
-            const total = Object.values(newResults).reduce((acc, curr) => acc + curr, 0)
-            const percentages = {};
-            for (const key in newResults) {
-                percentages[key] = ((newResults[key] / total) * 100).toFixed(2) + "%";
-            }
-    
-            console.log("percentages", percentages);
+        console.log("newResultsCategorie", newResultsCategorie);
 
-         // Conversion des pourcentages en nombres décimaux
-         const percentageEnDecimal = Object.entries(percentages).map(([category, value]) => ({
+        const total = Object.values(newResultsCategorie).reduce((acc, curr) => acc + curr, 0)
+        const percentages = {};
+        for (const key in newResultsCategorie) {
+            percentages[key] = ((newResultsCategorie[key] / total) * 100).toFixed(2) + "%";
+        }
+
+        console.log("percentages", percentages);
+
+        // Conversion des pourcentages en nombres décimaux
+        const percentageEnDecimal = Object.entries(percentages).map(([category, value]) => ({
             category: category,
             value: parseFloat(value.replace('%', ''))
         }));
@@ -34,7 +34,7 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
         // Largeur et hauteur du graphique
         const width = 600;
         const height = 400;
-        const margin = { top: 60, right: 20, bottom: 500, left: 40 };
+        const margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
         // Créer l'élément SVG
         const svg = d3.select("body").append("svg")
@@ -79,7 +79,7 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
         // Ajouter une légende
         svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", -5 - margin.left)
+            .attr("y", 0 - margin.left)
             .attr("x", 0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
@@ -91,7 +91,7 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
             .attr("y", 0 - (margin.top / 2))
             .attr("text-anchor", "middle")
             .style("font-size", "16px")
-            .text("Répartition en pourcentage par sous-catégorie alimentaire");
+            .text("Répartition en pourcentage par catégorie");
 
     })
     .catch(error => {
