@@ -89,7 +89,7 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
             .attr("y", 0 - (margin.top / 2))
             .attr("text-anchor", "middle")
             .style("font-size", "16px")
-            .text("Répartition en pourcentage par catégorie");
+            .text("Répartition en pourcentage par risques encourus par le consommateur");
 
     })
 

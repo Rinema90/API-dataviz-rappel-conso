@@ -1,5 +1,5 @@
 fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso0/records?limit=100')
-    // pour limiter à l'anée 2024, ajouter à l'URL : ?refine=date_de_publication:2024
+    // pour limiter à l'année 2024, ajouter à l'URL : ?refine=date_de_publication:2024
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -12,7 +12,6 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
         const counts = {};
         productCategories.forEach((x) => {
             counts[x] = (counts[x] || 0) + 1;
-
         });
         console.log("counts", counts)
 
@@ -55,8 +54,8 @@ fetch('https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelcon
             .attr("y", d => y(d[1]))
             .attr("height", d => height - y(d[1]));
 
-
     })
+
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
@@ -68,7 +67,3 @@ function showData(data) {
     });
     return categories;
 }
-
-
-
-
