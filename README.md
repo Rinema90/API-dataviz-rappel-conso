@@ -34,10 +34,11 @@ To install and run this project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone [git@github.com:Rinema90/API-dataviz-rappel-conso.git](https://github.com/Rinema90/API-dataviz-rappel-conso.git)
+   git clone https://github.com/Rinema90/API-dataviz-rappel-conso.git
    
 2. Navigate to the project directory:
 
+   ```bash
    cd API-dataviz-rappel-conso
    
 3. Open the global.html file in your web browser to view the charts.
@@ -63,4 +64,4 @@ Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License. See the [License](LICENSE) file for more details.
